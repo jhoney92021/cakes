@@ -1,19 +1,78 @@
-<h1>Hit Page!!!</h1>
-<button (click)="allCakesFromService()">Show all Tasks!</button>
-<div style="overflow: scroll">
-  {{ allCake | json }}
-</div>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<div><!-- Begin -->
+  <form (submit)="postCakeToService()"><!--form post cake -->
+    <!-- use the json pipe to see how newCake changes in real time -->
+    <p> {{ newCake | json }} </p>
+    <input type="text" name="newCake.baker" [(ngModel)]="newCake.baker" placeholder="baker">
+    <br>
+    <br>
+    <input type="text" name="newCake.image" [(ngModel)]="newCake.image" placeholder="image url">
+    <br>
+    <input type="submit" value="Create Cake">
+  </form><!--form post cake -->
+</div><!-- End -->
+<br><br>
+<button (click)="allCakesFromService()">Show all Cakes!</button>
 
+<div style="overflow: scroll"><!-- Begin -->
+  <!-- {{ allCake | json }} -->
+</div><!-- End -->
 
+<div style="height: 300px; overflow: scroll"><!-- Begin -->
+  <h3>All the Cakes</h3>
+  <table *ngFor="let idx of allCake | keyvalue" class="table"><!--Table for all Cakes-->
+    <br>
+    <tr>
+      <!-- <td>
+        Key: <b>{{idx.key}}</b> and Value:
+      </td> -->
+      <td>
+          <!-- {{idx.value.image}}<br> -->
+        <img [src]="idx.value.image" alt="no Url Given">
+        <br>
+        Baker: <b>{{idx.value['baker']}}</b>
+        {{idx.key}}
+        <button (click)="getOneCakeFromService(idx.key)">SHOW</button>|||
+        <button (click)="deleteTaskFromService(idx.key)">DELETE</button>         
+      </td>
+    </tr>
+    <br>
+  </table><!--Table for all Cakes-->
+</div><!-- End -->
+  <table *ngIf="cake" class="table"><!-- one cake -->
+    <tr>
+      <td>        
+        <b  *ngFor="let idx of cake.reviews | keyvalue">
+          Rating: {{idx.value.rating}}
+          <br>
+          Comment: {{idx.value.content}}
+          <br>
+          <br>
+        </b>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Review {{cake.baker}}'s cake
+        <br>
+        {{cake._id}}
+      </th>
+    </tr>
+    <tr>
+      <td>
+        <form (submit)="postReviewToService(cake._id)"><!--POST A REVIEW-->
+          <!-- use the json pipe to see how newReview changes in real time -->
+          <p> {{ newReview | json }} </p>
+          <input type="number" name="newReview.rating" [(ngModel)]="newReview.rating" placeholder="rating">
+          <br>
+          <br>
+          <input type="text" name="newReview.content" [(ngModel)]="newReview.content" placeholder="comment">
+          <br>
+          <input type="submit" value="Review Cake">
+        </form><!--POST A REVIEW-->
+      </td>
+    </tr>
+  </table><!-- one cake -->
 
-
-<form (submit)="postCakeToService()"><!--form post -->
-  <!-- use the json pipe to see how newCake changes in real time -->
-  <p> {{ newCake | json }} </p>
-  <input type="text" name="newCake.baker" [(ngModel)]="newCake.baker" placeholder="baker">
-  <br>
-  <br>
-  <input type="text" name="newCake.image" [(ngModel)]="newCake.image" placeholder="image">
-  <br>
-  <input type="submit" value="Create Cake">
-</form><!--form post -->

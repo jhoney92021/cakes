@@ -10,6 +10,6 @@ module.exports = function(app){
     app.post('/cake/:_id', controller.review)/*make review*/
     app.delete('/cake/:_id', controller.delete)/*delete one*/
     app.get('/cake/:_id', controller.view)/*view one*/
-    app.get('/cake/baker/:baker', controller.baker)/*read all by baker*/
+    app.get('/cake/:baker', controller.baker)/*read all by baker*/
 }
 //STUFF TO EXPORT TO server.js

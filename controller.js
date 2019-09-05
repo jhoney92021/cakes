@@ -26,7 +26,7 @@ module.exports = {
     //create cake
     //create review
     review: (request, response) => {
-        Review.create(request.body) 
+        Cake.findOneAndUpdate({_id: request.params._id}, {$push: {reviews: request.body}})
             .then(t =>{
                 response.json(t);
             })
