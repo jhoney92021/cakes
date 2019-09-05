@@ -1,0 +1,19 @@
+<h1>Hit Page!!!</h1>
+<button (click)="allCakesFromService()">Show all Tasks!</button>
+<div style="overflow: scroll">
+  {{ allCake | json }}
+</div>
+
+
+
+
+<form (submit)="postCakeToService()"><!--form post -->
+  <!-- use the json pipe to see how newCake changes in real time -->
+  <p> {{ newCake | json }} </p>
+  <input type="text" name="newCake.baker" [(ngModel)]="newCake.baker" placeholder="baker">
+  <br>
+  <br>
+  <input type="text" name="newCake.image" [(ngModel)]="newCake.image" placeholder="image">
+  <br>
+  <input type="submit" value="Create Cake">
+</form><!--form post -->
